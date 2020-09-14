@@ -1,0 +1,28 @@
+version: "3"
+services:
+  database_mutants:
+    image: mongo:latest
+    container_name: db_mutants
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin_user
+      - MONGO_INITDB_ROOT_PASSWORD=admin_pw
+      - MONGO_INITDB_DATABASE=mutants_db
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+      - ../database:/docker-entrypoint-initdb.d/database
+      - ../database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+  backend:
+    image: mutants_api:latest
+    depends_on:
+      - database_mutants
+    ports:
+      - 8080:8080
+    environment:
+      - db_host=database_mutants
+
+volumes:
+  mongodb_data_container:
