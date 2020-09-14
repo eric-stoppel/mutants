@@ -21,8 +21,6 @@ target/
 *.ipr
 
 ### Maven ###
-.m2
-.mvn
 target/
 pom.xml.tag
 pom.xml.releaseBackup
