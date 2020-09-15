@@ -33,6 +33,9 @@ services:
       - database_mutants
     environment:
       - db_host=database_mutants
+    volumes:
+      - "/var/log/mutants:/var/log/mutants"
+
 
 volumes:
   mongodb_data_container:
