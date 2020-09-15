@@ -19,6 +19,9 @@ La arquitectura de la aplicacion esta compuesta armada en un docker compose el c
 4 replicas del backend, 1 base de datos Mongo y un NGINX como reverse proxy para 
 balancear la carga.
     
+### Conventional commits
+
+Para este proyecto se uso la metodologia de conventional commits. [Abrir](https://www.conventionalcommits.org/en/v1.0.0/) 
 
 ## Cobertura Testing
 
@@ -43,3 +46,19 @@ Decisiones: Dado que no contamos con un proceso de CI/CD al levantar la app omit
 
 2. En caso de existir distintos tipos de mutantes en un futuro se puede crear una interfaz MutantServiceInterface y 
 realizar implementaciones sobre esta, al ser el dominio acotado no fue necesario.
+
+## Servicios cloud
+
+La api fue hosteada en heroku y la base de datos en un cluster de Atlas 
+
+- Base url: https://ericstoppel-mutants.herokuapp.com
+    - Endpoints
+        - [GET] /mutant/stats <br><br>
+        curl  --request GET \
+          https://ericstoppel-mutants.herokuapp.com/mutant/stats <br><br>
+        - [POST] /mutant  <br><br>
+        curl --header "Content-Type: application/json" \
+                                  --request POST \
+                                  --data '{"dna": [ "GTGCAA","CAGTGC","TTATGT","AGAAGG","CCACTA", "TCACTG"]}' \
+                                  https://ericstoppel-mutants.herokuapp.com/mutant
+            
