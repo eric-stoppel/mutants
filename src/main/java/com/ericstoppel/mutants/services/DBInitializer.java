@@ -21,7 +21,7 @@ public class DBInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-
+        dnaRepository.deleteAll();
 
     }
 }
