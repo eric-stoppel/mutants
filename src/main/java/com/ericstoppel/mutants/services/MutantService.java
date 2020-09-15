@@ -29,9 +29,9 @@ public class MutantService {
     public boolean isMutant(String[] dna){
         log.info("Processing dna: "+dna.toString());
         if(!validDnaSequence(dna)){
-            String message = "Dna sequence is invalid because of one of the following reasons: " +
-                                "1. Array is empty" +
-                                "2. Dna is not squared" +
+            String message = "Dna sequence is invalid because of one of the following reasons:  " +
+                                "1. Array is empty " +
+                                "2. Dna is not squared " +
                                 "3. It contains invalid nitrogen Bases";
             log.warn(message);
             throw new InvalidDnaSequenceException(message);

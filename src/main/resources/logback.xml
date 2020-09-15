@@ -12,10 +12,10 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>./log/mutants.log</file>
+        <file>/var/log/mutants/mutants.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>./log/mutants.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/var/log/mutants/mutants.%d{yyyy-MM-dd}.log</fileNamePattern>
 
             <!-- keep 30 days' worth of history capped at 3GB total size -->
             <maxHistory>30</maxHistory>
