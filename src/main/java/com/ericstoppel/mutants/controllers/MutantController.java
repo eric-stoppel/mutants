@@ -1,6 +1,7 @@
 package com.ericstoppel.mutants.controllers;
 
 import com.ericstoppel.mutants.exceptions.InvalidDnaSequenceException;
+import com.ericstoppel.mutants.model.dtos.ApiResponse;
 import com.ericstoppel.mutants.model.dtos.HumanDnaDto;
 import com.ericstoppel.mutants.model.dtos.MutantStatsDto;
 import com.ericstoppel.mutants.services.MutantService;
@@ -31,18 +32,18 @@ public class MutantController {
 
         try {
             if (mutantService.isMutant(user.getDna()))
-                return ResponseEntity.ok("dna provided is mutant");
+                return ResponseEntity.ok(ApiResponse.builder().body("the dna provided is mutant").build());
         }catch (InvalidDnaSequenceException ex){
             log.warn("Invalid call of endpoint /mutant, the dna provided is invalid");
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            return ResponseEntity.badRequest().body(ApiResponse.error().setBody(ex.getMessage()));
         }
 
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("dna provided is not mutant");
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ApiResponse.error().setBody("the dna provided is not mutant"));
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/stats")
-    public MutantStatsDto getMutantStats() {
-        return mutantStatService.fetchMutantVerificationStats();
+    public ApiResponse getMutantStats() {
+        return ApiResponse.builder().body(mutantStatService.fetchMutantVerificationStats()).build();
     }
 }

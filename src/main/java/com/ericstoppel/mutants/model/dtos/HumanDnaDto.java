@@ -1,11 +1,11 @@
 package com.ericstoppel.mutants.model.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 
 @Getter
-@AllArgsConstructor
+@NoArgsConstructor
 public class HumanDnaDto {
 
     @NonNull
