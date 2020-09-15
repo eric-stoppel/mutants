@@ -1,5 +1,15 @@
 version: "3"
 services:
+  load_balancer:
+    image: nginx:alpine
+    container_name: load_balancer
+    ports:
+    - 9090:9090
+    volumes:
+    - ./default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+
   database_mutants:
     image: mongo:latest
     container_name: db_mutants
@@ -17,10 +27,10 @@ services:
 
   backend:
     image: mutants_api:latest
+    deploy:
+      replicas: 4
     depends_on:
       - database_mutants
-    ports:
-      - 8080:8080
     environment:
       - db_host=database_mutants
 
