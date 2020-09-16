@@ -25,7 +25,7 @@ Para este proyecto se uso la metodologia de conventional commits. [Abrir](https:
 
 ## Cobertura Testing
 
-![alt text](https://i.imgur.com/4f4REjH.png)
+![coverage](https://i.imgur.com/a95aIcE.png)
 
 Decisiones: Dado que no contamos con un proceso de CI/CD al levantar la app omitimos los tests,
  idealmente deberiamos contar con una pipeline que corra los tests antes de buildear la imagen de docker.
