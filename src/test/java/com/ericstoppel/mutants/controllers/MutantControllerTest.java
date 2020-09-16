@@ -1,6 +1,7 @@
 package com.ericstoppel.mutants.controllers;
 
 import com.ericstoppel.mutants.exceptions.InvalidDnaSequenceException;
+import com.ericstoppel.mutants.model.dtos.MutantStatsDto;
 import com.ericstoppel.mutants.services.MutantService;
 import com.ericstoppel.mutants.services.MutantStatService;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,8 +31,8 @@ class MutantControllerTest {
     @Mock
     MutantStatService mutantStatService;
 
-
     private MockMvc mockMvc;
+    private static final String MUTANT_STATS_ENDPOINT = "/stats";
 
     @BeforeEach
     void setUp() {
@@ -42,7 +43,9 @@ class MutantControllerTest {
 
     @Test
     void whenPostMutant_withMutantDna_expect200AndStatusSuccess() throws Exception {
-        Mockito.doReturn(true).when(mutantService).isMutant(Mockito.any(String[].class));
+        Mockito.doReturn(true)
+                .when(mutantService)
+                .isMutant(Mockito.any(String[].class));
 
         mockMvc.perform(MockMvcRequestBuilders
                 .post(MutantController.URL_MAPPING)
@@ -55,7 +58,9 @@ class MutantControllerTest {
 
     @Test
     void whenPostMutant_withNonMutantDna_expect403AndStatusError() throws Exception{
-        Mockito.doReturn(false).when(mutantService).isMutant(Mockito.any(String[].class));
+        Mockito.doReturn(false)
+                .when(mutantService)
+                .isMutant(Mockito.any(String[].class));
 
         mockMvc.perform(MockMvcRequestBuilders
                 .post(MutantController.URL_MAPPING)
@@ -67,7 +72,9 @@ class MutantControllerTest {
 
     @Test
     void whenPostMutant_InvalidDna_expect400AndStatusError() throws Exception{
-        Mockito.doThrow(InvalidDnaSequenceException.class).when(mutantService).isMutant(Mockito.any(String[].class));
+        Mockito.doThrow(InvalidDnaSequenceException.class)
+                .when(mutantService)
+                .isMutant(Mockito.any(String[].class));
 
         mockMvc.perform(MockMvcRequestBuilders
                 .post(MutantController.URL_MAPPING)
@@ -78,6 +85,17 @@ class MutantControllerTest {
     }
 
     @Test
-    void getMutantStats() {
+    void whenGetMutantStats_expect200() throws Exception{
+        MutantStatsDto statsDto = new MutantStatsDto(1, 2, 0.5);
+
+        Mockito.doReturn(statsDto)
+                .when(mutantStatService)
+                .fetchMutantVerificationStats();
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .get(MutantController.URL_MAPPING+MUTANT_STATS_ENDPOINT)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
     }
 }
