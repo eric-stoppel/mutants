@@ -39,6 +39,9 @@ Decisiones: Dado que no contamos con un proceso de CI/CD al levantar la app omit
    someone@# sh deploy.sh
 ```
 
+Luego, si ejecutamos - docker ps deberiamos ver 6 contenerdores, 4 replicas del backend, el nginx y la base mongo, para probar la api local se debe acceder
+a localhost:9090:
+ -> /mutant o -> /mutant/stats de la misma manera que se describe en servicios cloud
 ## Decisiones de diseño
 
 1. Las credenciales de la base de datos estan en el application.properties, lo ideal seria
